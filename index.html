@@ -14,9 +14,8 @@
   }
   .wrap { max-width: 680px; margin: 0 auto; }
   h1 { font-family: Georgia, "Times New Roman", serif; font-size: 30px; margin: 0 0 4px; }
-  h2 { font-family: Georgia, serif; font-size: 20px; margin: 34px 0 8px; color: #B4402E; }
+  h2 { font-family: Georgia, serif; font-size: 19px; margin: 34px 0 8px; color: #B4402E; }
   .updated { color: #6b6357; font-size: 14px; margin-bottom: 22px; }
-  .lede { font-size: 17px; }
   ul { padding-left: 20px; }
   li { margin: 6px 0; }
   a { color: #B4402E; }
@@ -33,52 +32,142 @@
 <body>
 <div class="wrap">
   <h1>Rummage — Privacy Policy</h1>
-  <div class="updated">Last updated: July 20, 2026</div>
+  <div class="updated">Effective date: August 24, 2026</div>
 
-  <p class="lede">Rummage ("the app") helps you turn what's in your kitchen into dinner plans.
-  This policy explains what we collect and why. Short version: your data powers your own
-  suggestions — we don't sell it and we don't run ads.</p>
+  <h2>1. Introduction and Scope</h2>
+  <p>This Privacy Policy ("Policy") describes how Rummage ("Rummage," "we," "us," or "our")
+  collects, uses, discloses, and retains information in connection with the Rummage mobile
+  application and related services (collectively, the "Service"). By accessing or using the
+  Service, you acknowledge that you have read and understood this Policy. This Policy is
+  incorporated into and forms part of the Rummage <a href="terms.html">Terms of Service</a>.</p>
 
-  <h2>What we collect</h2>
+  <h2>2. Definitions</h2>
   <ul>
-    <li><strong>Account info.</strong> An account ID, and your email if you sign up with one. Anonymous sign-in is supported.</li>
-    <li><strong>Kitchen photos.</strong> Photos you take of your fridge or pantry are uploaded so our AI can identify the food in them. They're stored privately in your account and are never shared with other users.</li>
-    <li><strong>Pantry and preference data.</strong> The ingredients the app tracks for you, plus preferences you set — including dietary restrictions and food allergies. Allergy settings are used only to filter recipe suggestions.</li>
-    <li><strong>Cooking activity.</strong> Which suggested dinners you cook, skip, or swap, and your ratings. This tunes your future suggestions.</li>
-    <li><strong>Device push token.</strong> Only if you enable notifications (dinner reminders, use-it-up alerts). You can turn these off anytime in Settings.</li>
-    <li><strong>Basic usage data.</strong> API request counts and timing, used for rate limiting and abuse prevention.</li>
+    <li><strong>"Personal Information"</strong> means information that identifies, relates to, or
+    could reasonably be linked with an identifiable individual.</li>
+    <li><strong>"User Content"</strong> means content you submit to the Service, including
+    photographs of your kitchen, refrigerator, or pantry, and corrections you provide to the
+    Service's recognition output.</li>
+    <li><strong>"De-identified Data"</strong> means information that cannot reasonably be used to
+    infer information about, or otherwise be linked to, an identifiable individual.</li>
   </ul>
 
-  <h2>What we do NOT collect</h2>
-  <p>No advertising identifiers, no location tracking, no contacts, no analytics SDKs harvesting
-  your behavior, no selling or renting data to anyone — ever.</p>
-
-  <h2>Who processes your data</h2>
+  <h2>3. Information We Collect</h2>
   <ul>
-    <li><strong>Supabase</strong> — hosts our database and photo storage (your data is protected by per-user access rules).</li>
-    <li><strong>Google (Gemini)</strong> — processes your kitchen photos to identify the food in them. Photos are sent for processing only; Google's paid API terms do not permit training on this data.</li>
-    <li><strong>Anthropic (Claude)</strong> — generates your recipe suggestions from your food list, and serves as the backup photo processor. Anthropic does not train on this API data.</li>
-    <li><strong>Expo</strong> — delivers push notifications if you enable them.</li>
-    <li>Recipe photos shown in the app are served from <strong>Pexels</strong>, a stock photo service; nothing about you is sent to them beyond a standard image request.</li>
+    <li><strong>Account Data.</strong> A unique account identifier; your email address if you
+    register with one. Anonymous authentication is supported.</li>
+    <li><strong>User Content.</strong> Photographs you capture or upload for food recognition,
+    and any corrections you make to recognition results. Photographs are stored privately within
+    your account and are not shared with other users.</li>
+    <li><strong>Inventory and Preference Data.</strong> The food inventory the Service maintains
+    on your behalf; preferences you configure, including dietary restrictions and food-allergy
+    selections. Allergy selections are processed solely to filter recipe output and for the
+    quality-assurance purposes described in Section 4.</li>
+    <li><strong>Activity Data.</strong> Recipes viewed, saved, planned, prepared, swapped, or
+    dismissed; ratings; search queries; grocery-list activity.</li>
+    <li><strong>Transaction Data.</strong> If you purchase a subscription, our subscription
+    -management provider processes an account identifier and purchase receipt and provides us
+    your subscription status. Payment card details are processed exclusively by Apple or Google
+    and are never received or stored by us.</li>
+    <li><strong>Device and Usage Data.</strong> Push-notification token (only where notifications
+    are enabled); application events such as screens viewed, features used, scan outcomes, and
+    error and crash reports; API request counts and timing. Such data is collected by us directly
+    ("first party") and is not shared with third-party advertising or analytics networks.</li>
+  </ul>
+  <p>We do not collect advertising identifiers, precise geolocation, or device contacts.</p>
+
+  <h2>4. Purposes of Processing</h2>
+  <p>We process the information described above for the following purposes:</p>
+  <ul>
+    <li>to provide, operate, maintain, and secure the Service;</li>
+    <li>to personalize recipe suggestions and related features;</li>
+    <li>to develop, test, train, and improve our food-recognition and recommendation models and
+    the Service generally, including through the use of User Content and correction data
+    (see Section 5);</li>
+    <li>to measure usage, diagnose faults, enforce rate limits, and prevent fraud and abuse;</li>
+    <li>to communicate with you regarding the Service, where you have enabled notifications; and</li>
+    <li>to comply with applicable law and to establish, exercise, or defend legal claims.</li>
   </ul>
 
-  <h2>Your controls</h2>
+  <h2>5. Model Development</h2>
+  <p>You grant us the right to use User Content, correction data, and Activity Data to develop,
+  train, evaluate, and improve our proprietary recognition and recommendation systems. Our
+  third-party artificial-intelligence providers process data solely to deliver their respective
+  services to us; their applicable API terms prohibit use of such data to train their own
+  models.</p>
+
+  <h2>6. De-identified and Aggregated Data</h2>
+  <p>We may create De-identified Data and aggregated data sets (for example, statistics
+  describing the prevalence of grocery items across households) from information collected
+  through the Service. We may use, disclose, license, or commercialize De-identified Data and
+  aggregated data for any lawful purpose, provided that such data does not identify you. We
+  commit to maintaining such data in de-identified form and not to attempt re-identification.</p>
+
+  <h2>7. Disclosures of Personal Information</h2>
+  <p>We do not sell or rent Personal Information. We disclose Personal Information only:</p>
   <ul>
-    <li><strong>Delete your data:</strong> deleting your account removes your photos, pantry, preferences, and cooking history from our systems.</li>
-    <li><strong>Notifications:</strong> opt-in, and revocable in Settings or your device settings.</li>
-    <li><strong>Allergies/diet:</strong> editable or removable anytime in Settings.</li>
+    <li><strong>to service providers (processors)</strong> acting on our behalf under contractual
+    confidentiality obligations: Supabase, Inc. (database and storage hosting); Google LLC
+    (Gemini API — photograph processing); Anthropic, PBC (Claude API — recipe generation and
+    fallback photograph processing); RevenueCat, Inc. (subscription management); Expo (push
+    notification delivery). Recipe imagery is served from Pexels; requests to Pexels do not
+    include Personal Information;</li>
+    <li><strong>for legal reasons</strong>, where required by law, regulation, legal process, or
+    enforceable governmental request, or where necessary to protect the rights, property, or
+    safety of Rummage, its users, or the public; and</li>
+    <li><strong>in a business transfer</strong>, in connection with a merger, acquisition,
+    financing, reorganization, or sale of assets, in which case this Policy will continue to
+    apply to previously collected information unless and until you are notified of a replacement
+    policy.</li>
   </ul>
 
-  <h2>Children</h2>
-  <p>The app is not directed at children under 13 and we don't knowingly collect their data.</p>
+  <h2>8. Data Retention</h2>
+  <p>We retain Personal Information for as long as your account remains active and as necessary
+  for the purposes described in Section 4, including retention of photographs and correction
+  data for model quality assurance. Upon account deletion, your photographs, inventory,
+  preferences, and activity history are deleted from our production systems; residual copies may
+  persist in backups for a limited period before being overwritten. De-identified Data may be
+  retained indefinitely.</p>
 
-  <h2>Changes</h2>
-  <p>If this policy changes materially, we'll note it in the app. Continued use after a change means you accept it.</p>
+  <h2>9. Security</h2>
+  <p>We employ administrative and technical safeguards appropriate to the nature of the data,
+  including per-user access controls, transport encryption, and private storage for photographs.
+  No system is perfectly secure, and we cannot guarantee absolute security.</p>
 
-  <h2>Contact</h2>
-  <p>Questions or deletion requests: <a href="mailto:roland.skare@gmail.com">roland.skare@gmail.com</a></p>
+  <h2>10. Your Rights and Choices</h2>
+  <ul>
+    <li><strong>Deletion.</strong> You may delete your account at any time in Settings, which
+    effects the deletion described in Section 8, or submit a request to the contact below.</li>
+    <li><strong>Access and correction.</strong> You may access and modify your inventory,
+    preferences, and account information within the Service, or contact us for assistance.</li>
+    <li><strong>Notifications.</strong> Push notifications are opt-in and may be disabled at any
+    time in Settings or at the operating-system level.</li>
+    <li><strong>Jurisdiction-specific rights.</strong> Depending on your place of residence
+    (including California and the European Economic Area), you may have additional rights, such
+    as rights of access, portability, deletion, and non-discrimination. We honor verified
+    requests as required by applicable law. We do not sell Personal Information as "sale" is
+    defined under the California Consumer Privacy Act.</li>
+  </ul>
 
-  <div class="foot">Rummage · From fridge to dinner.</div>
+  <h2>11. Children's Privacy</h2>
+  <p>The Service is not directed to children under 13, and we do not knowingly collect Personal
+  Information from children under 13. If we learn that such information has been collected, we
+  will delete it.</p>
+
+  <h2>12. International Users</h2>
+  <p>The Service is operated from the United States, and information is processed and stored in
+  the United States. By using the Service, you acknowledge that your information will be
+  transferred to and processed in the United States.</p>
+
+  <h2>13. Changes to this Policy</h2>
+  <p>We may amend this Policy from time to time. Material changes will be indicated within the
+  Service and by revision of the effective date above. Continued use of the Service after the
+  effective date of an amended Policy constitutes acceptance of the amendment.</p>
+
+  <h2>14. Contact</h2>
+  <p>Privacy inquiries and requests: <a href="mailto:roland.skare@gmail.com">roland.skare@gmail.com</a></p>
+
+  <div class="foot">Rummage · From fridge to dinner. · <a href="terms.html">Terms of Service</a></div>
 </div>
 </body>
 </html>
