@@ -101,7 +101,12 @@
   <div id="signup">
     <div class="steps">
       <div class="step"><div class="num">1</div><p><b>Open your fridge and take a few photos.</b> Shelves, drawers, the door.</p></div>
-      <div class="step"><div class="num">2</div><p><b>It works out what you have.</b> About fifteen seconds.</p></div>
+      <!-- step 2 used to promise "about fifteen seconds" (audit 2026-08-05 half-2). The only
+           evidence for that number was three prod scans, none of them the 3+ photo scans the app
+           now steers people toward, and scan-process runs one vision call per photo in sequence.
+           First thing a tester does is time it, so it says "a few moments" until there is a real
+           distribution worth quoting. -->
+      <div class="step"><div class="num">2</div><p><b>It works out what you have.</b> A few moments.</p></div>
       <div class="step"><div class="num">3</div><p><b>Cook one of the dinners it gives you.</b> No shop needed.</p></div>
     </div>
 
@@ -119,6 +124,12 @@
       <p class="err" id="err"></p>
       <p class="fine">Your email is only so I can send install help and ask what you think.
         Nothing else, and never passed on.</p>
+      <!-- shown only once this platform is paid: the people who tested for free were promised
+           free forever, and a card handed out in July should still be honoured in September -->
+      <div class="warn" id="grandfather" style="display:none">
+        <b>Already testing Rummage?</b> You keep it free, permanently. This only applies to
+        people starting from today.
+      </div>
     </form>
   </div>
 
@@ -133,9 +144,57 @@
 <script>
 // ── FILL THESE TWO IN when the tracks go live. Until then the page still captures the
 // email and says "you're on the list", which is the correct behaviour pre-launch. ──
-var IOS_TESTFLIGHT_LINK = "https://testflight.apple.com/join/Kc3gfEm8";
+var IOS_TESTFLIGHT_LINK = "https://testflight.apple.com/join/Kc3gfEm8";        // e.g. https://testflight.apple.com/join/XXXXXXXX
 var ANDROID_GROUP_JOIN  = "";        // https://groups.google.com/g/<group>
 var ANDROID_PLAY_OPTIN  = "";        // the Copy-button link from the closed track
+
+// ── BETA CLOSES (LAUNCH-SEQUENCE, ratified 7/28). The beta and the paid app share ONE url,
+// so the page has to tell the truth to whoever is standing in front of it. Set a date the day
+// the paid build goes live on that platform, in the visitor's own local terms (YYYY-MM-DD).
+// Empty = that platform is still free beta. iOS ~Aug 18-22, Android ~Aug 25-31.
+//
+// This is per-PLATFORM on purpose: iOS can be paid while Android is still a free beta, and an
+// Android visitor in that window must not be shown a price they cannot be charged. Anyone who
+// activated before their platform's date is grandfathered free forever, which is why the paid
+// copy still says so — the QR cards handed out earlier promised a free beta, and that promise
+// outlives the card.
+var IOS_PAID_FROM     = "";   // e.g. "2026-08-20"
+var ANDROID_PAID_FROM = "";   // e.g. "2026-08-27"
+var PRICE = "$4.99/month";
+// MODEL CHANGE 2026-08-24: there is NO free trial. Free = 10 lifetime scan sessions and the
+// basics stay free forever; Pro is the subscription. PAYWALL-SETUP.md is the plan of record
+// and supersedes the V28 trial references. This copy is dormant while both *_PAID_FROM are
+// empty, but it has to already be true on the day one of those dates is set.
+var FREE_SCANS = 10;
+
+function isPaid(plat) {
+  var from = plat === "ios" ? IOS_PAID_FROM : plat === "android" ? ANDROID_PAID_FROM : "";
+  if (!from) return false;
+  // date-only compare in local time: a visitor on the launch day should see the launch copy
+  var d = new Date(from + "T00:00:00");
+  return !isNaN(d) && Date.now() >= d.getTime();
+}
+
+// Swap the pitch before first paint so nobody sees "free" flash into "trial".
+(function applyOffer() {
+  var plat = platform();
+  if (!isPaid(plat)) return;
+  document.documentElement.setAttribute("data-offer", "paid");
+  var sub = document.querySelector(".sub");
+  if (sub) {
+    sub.innerHTML = "Real recipes from what you already have — not a shopping list of things you" +
+      " don't. <b>First " + FREE_SCANS + " fridge scans free</b>, then " + PRICE + ". Cancel any time.";
+  }
+  var step3 = document.querySelectorAll(".step p")[2];
+  if (step3) {
+    step3.innerHTML = "<b>Cook one of the dinners it gives you.</b> No shop needed. " +
+      "Your first " + FREE_SCANS + " scans are free — you'll know well before you're charged.";
+  }
+  var btn = document.getElementById("go");
+  if (btn) btn.textContent = "Get my " + FREE_SCANS + " free scans";
+  var grandfather = document.getElementById("grandfather");
+  if (grandfather) grandfather.style.display = "block";
+})();
 
 var SUPA = "https://mdcpmzeagmaktthjsxzx.supabase.co/rest/v1/waitlist";
 var KEY  = "sb_publishable_G_nm9Aura-wtk6yZGvZSWQ_Eu8_vNOJ"; // publishable, insert-only by RLS
@@ -208,10 +267,24 @@ function show(plat) {
       '<div class="ok"><h2>You\'re on the list.</h2><p>' +
       (plat === "unknown"
         ? 'Looks like you\'re on a computer — Rummage is a phone app. I\'ll email you the link; open it on your phone.'
-        : 'The ' + (plat === "ios" ? "iPhone" : "Android") + ' build is days away, not weeks. I\'ll email you the moment it\'s ready.') +
+        : plat === "android"
+          ? 'Android installs through the Google Play tester track, and I have to add your Google account to that track by hand before Play will show you the app. Reply to the email I just sent with the Gmail address your phone uses for the Play Store, and I will add you.'
+          : 'The iPhone build is with Apple. I will email you the moment it is ready.') +
       '</p></div>' +
-      '<div class="warn">Want it sooner? Reply to that email and tell me what you cooked this' +
-      ' week — that\'s genuinely the feedback I need most.</div>';
+      // only the Android path is waiting on the visitor to send something back; a desktop
+      // visitor was just told to open the link on their phone, and telling them their reply
+      // is "the whole hold-up" would be nonsense.
+      (plat === "android"
+        ? '<div class="warn">That reply is the whole hold-up. The moment I have the address, you are in.</div>'
+        : '<div class="warn">Want it sooner? Reply to that email and tell me what you cooked this' +
+          ' week — that is genuinely the feedback I need most.</div>');
+  }
+  // Say the price on the way in, not on the way out. Someone who installs expecting "free"
+  // and meets a charge later is a refund and a bad review; this is the last honest moment.
+  if (isPaid(plat)) {
+    html += '<div class="warn">Your first ' + FREE_SCANS + ' fridge scans are free. After that it\'s ' +
+      PRICE + ', and you can cancel from your ' +
+      (plat === "ios" ? "Apple" : "Google") + ' account settings at any point before it starts.</div>';
   }
   el.innerHTML = html;
   el.style.display = "block";
